@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('edit_sport');
-});
+Route::get('/','SportController@index');
 
 Route::resource('sports','SportController');
 

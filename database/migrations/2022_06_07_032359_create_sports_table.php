@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sports', function (Blueprint $table) {
             $table->increments('id',11);
-            $table->integer('uuid');
+            $table->string('uuid');
             $table->string('name');
             $table->string('image_path');
             $table->text('describe');

@@ -6,12 +6,12 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Price;
 use App\Models\Sport;
-use Illuminate\Contracts\Session\Session;
+use Faker\Factory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class SportController extends Controller
 {
@@ -65,6 +65,29 @@ class SportController extends Controller
     }
     public function save(Request $request)
     {
+
+        // $validatedData = $request->validate([
+        //     'name' => 'required|max:50',
+        //     'category_id' => 'required',
+        //     'category_id' => 'required',
+        //     'price_id' => 'required',
+        //     'image' => '|max:1024',
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:50',
+            'category_id' => 'required',
+            'category_id' => 'required',
+            'price_id' => 'required',
+            'image' => '|max:1024',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('add-sport')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $image_path = "";
 
         $get_image = $request->file('image');
@@ -73,11 +96,10 @@ class SportController extends Controller
             $image_path = time() . '_' . $get_image->getClientOriginalName();
             $get_image->move('uploads', $image_path);
         }
-
-
+        $faker = Factory::create();
         $sport = new Sport;
 
-        $sport->uuid = 11;
+        $sport->uuid = $faker->uuid();
         $sport->name = $request->name;
         $sport->image_path = $image_path;
         $sport->describe = $request->describe;

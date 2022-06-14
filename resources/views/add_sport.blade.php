@@ -17,17 +17,19 @@
 
                         <div class="mb-3">
                             <label for="">Tên Sport</label>
-                            <input type="text" name="name" required class="form-control">
+                            <input type="text" name="name" required class="form-control" value="{{ old('name') }}">
                         </div>
                         <div class="mb-3">
                             <label for="">Mô tả</label>
-                            <input type="text" name="describe" required class="form-control">
+                            <input type="text" name="describe" class="form-control"value="{{ old('describe') }}">
                         </div>
                         <div class="mb-3">
                             <label for="">Loại Sport</label>
                             <select id="category_id" name="category_id" class="form-control">
                                 @foreach($category as $key => $cat)
-                                <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                <option <?php if ($cat->id ==  old('category_id') ) {
+                                                echo ("selected");
+                                            } ?> value="{{$cat->id}}">{{$cat->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -35,13 +37,15 @@
                             <label for="">Giá theo giờ</label>
                             <select id="product_categorie" name="price_id" class="form-control">
                                 @foreach($prices as $key => $pri)
-                                <option value="{{$pri->id}}">{{$pri->price}}</option>
+                                <option <?php if ($pri->id == old('price_id')) {
+                                                echo ("selected");
+                                            } ?> value="{{$pri->id}}">{{$pri->price}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="">Hình ảnh chính</label>
-                            <input type="file" name="image" required class="course form-control">
+                            <input type="file" name="image" class="course form-control">
                         </div>
                         <div class="mb-3">
                             <label for="">Hình ảnh mô tả</label>
@@ -50,7 +54,15 @@
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary">Thêm</button>
                         </div>
-
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                     </form>
 
                 </div>

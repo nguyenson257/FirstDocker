@@ -18,7 +18,7 @@ class SportFactory extends Factory
     public function definition()
     {
         return [
-            'uuid' => $this->faker->numberBetween($min = 1, $max = 100),
+            'uuid' => $this->faker->uuid(),
             'name' => $this->faker->name,
             'image_path' => "img".($this->faker->numberBetween($min = 1, $max = 20)).".jpg",
             'describe' => $this->faker->text($maxNbChars = 100),
