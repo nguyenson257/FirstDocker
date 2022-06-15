@@ -28,16 +28,16 @@
 
                 </div>
             </div>
-            <table class="table table-striped table-hover table-bordered">
+            <table id="selectedColumn" class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th>Tên Sport</th>
-                        <th>Loại Sport</th>
-                        <th>Hình ảnh chính</th>
-                        <th>Giá theo giờ</th>
-                        <th>Mô tả</th>
-                        <th>Ngày cập nhật</th>
-                        <th>Tùy chọn</th>
+                        <th class="th-sm">@sortablelink('name', 'Tên Sport')</th>
+                        <th class="th-sm">@sortablelink('category.name', 'Loại Sport')</th>
+                        <th class="th-sm">Hình ảnh chính</th>
+                        <th class="th-sm">@sortablelink('price.price', 'Giá theo giờ')</th>
+                        <th class="th-sm">Mô tả</th>
+                        <th class="th-sm">@sortablelink('updated_at', 'Ngày cập nhật')</th>
+                        <th class="th-sm">Tùy chọn</th>
                     </tr>
                 </thead>
                 <tbody>

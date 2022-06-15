@@ -13,7 +13,7 @@
                     <div class="col-lg-4">
                         <p>Hình ảnh chính:</p>
                         <form action="/deletecover/{{ $sport->id }}" method="post">
-                            <button class="btn text-danger">X</button>
+                            <button class="btn text-danger">x</button>
                             @csrf
                             @method('delete')
                         </form>
@@ -44,7 +44,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="">Mô tả</label>
-                                <input type="text" name="describe" required class="form-control" value=" {{$sport->describe}}">
+                                <input type="text" name="describe"  class="form-control" value=" {{$sport->describe}}">
                             </div>
                             <div class="mb-3">
                                 <label for="">Loại Sport</label>

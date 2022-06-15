@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('uuid');
             $table->string('name');
             $table->string('image_path');
-            $table->text('describe');
+            $table->text('describe')->nullable();
             $table->integer('price_id');
             $table->integer('category_id');
             $table->softDeletes()->nullable();
