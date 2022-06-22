@@ -24,6 +24,7 @@ class SportFactory extends Factory
             'describe' => $this->faker->text($maxNbChars = 100),
             'price_id' => $this->faker->numberBetween($min = 1, $max = 50),
             'category_id' => $this->faker->numberBetween($min = 1, $max = 100),
+            'user_id' => $this->faker->numberBetween($min = 2, $max = 10),
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ];

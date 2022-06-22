@@ -20,6 +20,10 @@ class Sport extends Model
     {
         return $this->hasone(Price::class, 'id', 'price_id');
     }
+    public function users()
+    {
+        return $this->hasone(User::class, 'id', 'user_id');
+    }
     public function image()
     {
         return $this->hasmany(Image::class);

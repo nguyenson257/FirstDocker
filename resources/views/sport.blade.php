@@ -1,5 +1,26 @@
 @extends('layout')
 @section('content')
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left Side Of Navbar -->
+
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                {{ Auth::user()->name }}
+            </a>
+
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                Log out
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+
+        </div>
+    </div>
+</nav>
 <div class="container-xl">
     <div class="table-responsive">
         <div class="table-wrapper">
@@ -37,6 +58,7 @@
                         <th class="th-sm">@sortablelink('price.price', 'Giá theo giờ')</th>
                         <th class="th-sm">Mô tả</th>
                         <th class="th-sm">@sortablelink('updated_at', 'Ngày cập nhật')</th>
+                        <th class="th-sm">Người tạo</th>
                         <th class="th-sm">Tùy chọn</th>
                     </tr>
                 </thead>
@@ -53,6 +75,7 @@
                         </td>
                         <td class="pd-5">{{$spo->describe}}</td>
                         <td class="pd-5">{{$spo->updated_at}}</td>
+                        <td class="pd-5">{{$spo->users->username}}</td>
                         <td class="pd-5">
                             <a href="{{URL::to('/detail/'.$spo->id)}}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                             <a href="{{URL::to('/edit-sport/'.$spo->id)}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
