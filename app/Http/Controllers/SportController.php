@@ -18,30 +18,36 @@ use Illuminate\Support\Facades\Validator;
 
 class SportController extends Controller
 {
+
+    private function check_permision($id)
+    {
+        $sport = Sport::where('id', $id)->first();
+        if (Gate::allows('check-sports', $sport->user_id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function index()
     {
-        if (Gate::allows('show-sports') == 'admin') {
+        if (Gate::allows('show-sports')) {
             $all_sport = Sport::withoutTrashed()->with(['category', 'price', 'users'])->sortable()->paginate(10);
             return view('sport')->with('sports', $all_sport);
-        } elseif (Gate::allows('show-sports')) {
-            $all_sport = Sport::withoutTrashed()->where('user_id', '=', Auth::user()->id)->with(['category', 'price', 'users'])->sortable()->paginate(10);
-            return view('sport')->with('sports', $all_sport);
         } else {
-            $all_sport = Sport::withoutTrashed()->where('user_id', '=', 10000000)->with(['category', 'price', 'users'])->sortable()->paginate(10);
+            $all_sport = Sport::withoutTrashed()->where('user_id', '=', Auth::user()->id)->with(['category', 'price', 'users'])->sortable()->paginate(10);
             return view('sport')->with('sports', $all_sport);
         }
     }
 
     public function delete(Request $request, $id)
     {
-        $sport = Sport::where('id', $id)->first();
-        if (Gate::allows('show-sports', $sport->user_id)) {
+        if ($this->check_permision($id)) {
             Sport::where('id', $id)->delete();
             $request->session()->put('message', 'Deleted Successfully');
             return Redirect::to('sports');
         } else {
-            Session::put('message', "You don't have permision");
-            Redirect::back();
+            return Redirect::back()->with('message', "You don't have permision!!!");
         }
     }
 
@@ -61,9 +67,13 @@ class SportController extends Controller
 
     public function detail($id)
     {
-        $sport = Sport::where('id', $id)->with(['category', 'price'])->first();
-        $images = Image::where('sport_id', $id)->get();
-        return view('sport_detail')->with('sport', $sport)->with('images', $images);
+        if ($this->check_permision($id)) {
+            $sport = Sport::where('id', $id)->with(['category', 'price'])->first();
+            $images = Image::where('sport_id', $id)->get();
+            return view('sport_detail')->with('sport', $sport)->with('images', $images);
+        } else {
+            return Redirect::back()->with('message', "You don't have permision!!!");
+        }
     }
 
     public function add_sport()
@@ -75,8 +85,7 @@ class SportController extends Controller
 
     public function edit_sport($id)
     {
-        $sport = Sport::where('id', $id)->first();
-        if (Gate::allows('show-sports', $sport->user_id)) {
+        if ($this->check_permision($id)) {
             $sport = Sport::where('id', $id)->with(['category', 'price'])->first();
             $category = Category::get();
             $prices = Price::get();
@@ -84,8 +93,7 @@ class SportController extends Controller
 
             return view('edit_sport')->with('sport', $sport)->with('category', $category)->with('prices', $prices)->with('images', $images);
         } else {
-            Session::put('message', "You don't have permision");
-            Redirect::back();
+            return Redirect::back()->with('message', "You don't have permision!!!");
         }
     }
 

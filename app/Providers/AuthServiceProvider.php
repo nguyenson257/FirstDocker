@@ -26,12 +26,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         Gate::define('show-sports', function ($user) {
             if ($user->role_id == 1) {
-                return 'admin';
-            } elseif ($user->role_id == 2) {
                 return true;
-            } else {
+            } elseif ($user->role_id == 2) {
                 return false;
-            };
+            }
         });
         Gate::define('check-sports', function ($user, $user_id) {
             if ($user->id == $user_id)
