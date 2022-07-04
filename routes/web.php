@@ -35,7 +35,7 @@ Route::delete('/deleteimage/{id}','SportController@deleteimage')->middleware('au
 Route::delete('/deletecover/{id}','SportController@deletecover')->middleware('auth');
 
 
-Route::post('sport/search-advance', 'SportController@getSportSearch')->middleware('auth');
+Route::post('sports/search-advance', 'SportController@getSportSearch');
 
 
 Auth::routes();

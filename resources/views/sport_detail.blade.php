@@ -3,6 +3,8 @@
 
 <div class="container">
     <div class="card">
+    <a href="{{URL::to('sports')}}">Back</a>
+
         <div class="container-fliud">
             <div class="wrapper row">
                 <div class="preview col-md-6">
@@ -25,10 +27,10 @@
                     <h4 class="price">Price: <span> {{$sport->price->price}} VND</span></h4>
                     <h5 class="sizes">Category: <span class="size" data-toggle="tooltip" title="small">{{$sport->category->name}}</span>
                     </h5>
-                    <div class="action">
+                    <!-- <div class="action">
                         <button class="add-to-cart btn btn-default" type="button">add to cart</button>
                         <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
